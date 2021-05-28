@@ -30,11 +30,33 @@ class MainController:
         img_url = img.filename.split("/")[0:-1]
         img_url = "/".join(img_url) + "/"
         img.filename = img.filename.split("/")[-1]
-        print(img_url + img.filename)
-        # insert_query = "INSERT INTO image(image_name, image_url, mine_type) VALUES(%s,%s,%s) RETURNING id"
-        # query_var = (img.filename, img_bytes, img.format,)
-        # returned_id = imageController.upload_image_to_database_in_bytes(img)
-        # return returned_id
+        print(img_url)
+        print(img.filename)
+        insert_query = "INSERT INTO img_url(image_name, image_url, mine_type) VALUES(%s,%s,%s) RETURNING id"
+        query_var = (img.filename, img_url, img.format,)
+        db.execute_query(insert_query, query_var)
+        returned_id = db.fetchone()[0]
+        return returned_id
+
+    def fetch_one_img_url_from_database(self, image_name):
+        query_image_data = "select image_name, image_url,mine_type from img_url where image_name = %s"
+        db.execute_query(query_image_data, (image_name,))
+
+        image_info = db.fetchone()
+
+        image_name = image_info[0]
+        image_url = image_info[1]
+
+        image = imageController.read_image_from_img_url(image_name, image_url)
+        return image
+
+    def fetch_all_img_url_from_database_by_limit(self, limit):
+        query_image_data = "select image_name, image_url,mine_type from img_url limit %s"
+        db.execute_query(query_image_data, (limit,))
+
+        image_urls_arr = db.fetchall()
+
+        return image_urls_arr
 
     def fetch_one_image_from_database(self, image_name):
         query_image_data = "select image_name, image_data,mine_type from image where image_name = %s"
@@ -63,6 +85,11 @@ class MainController:
     def read_image_from_bytes(self, img_name, img_bytes):
         img = imageController.read_image_from_bytes(img_name, img_bytes)
         return img
+
+    def read_image_from_img_url(self,img_name, img_url):
+        img = imageController.read_image_from_img_url(img_name, img_url)
+        return img
+
 
 
 images_path = "/home/john/桌面/工作/測試/減少檔案搬移避免檔案遺失測試/測試用圖片/test-image/"

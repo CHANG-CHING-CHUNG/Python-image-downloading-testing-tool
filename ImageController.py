@@ -7,6 +7,11 @@ class ImageController:
         img.filename = img_name
         return img
 
+    def read_image_from_img_url(self,img_name, img_url):
+        img = Image.open(img_url+img_name)
+        img.filename = img_name
+        return img
+
     def convert_image_to_bytes(self, img):
         img_byte_arr = io.BytesIO()
         img.save(img_byte_arr, format=img.format)
