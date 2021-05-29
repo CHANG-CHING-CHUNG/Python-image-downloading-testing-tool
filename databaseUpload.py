@@ -1,12 +1,5 @@
-import psycopg2
-from db_class import db
-from PIL import Image
-import io
-from os import walk
-from ImageController import imageController
 from MainController import mainController
-import time
-import logging
+
 
 
 

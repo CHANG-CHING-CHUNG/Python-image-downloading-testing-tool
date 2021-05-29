@@ -8,15 +8,25 @@ from MainController import mainController
 import time
 import logging
 import datetime
+import sys
 
 current_date = datetime.datetime.now()
 current_date = current_date.strftime("%Y-%m-%d")
 
-logging.basicConfig(filename=current_date+'-url-download.log', filemode='w', format='%(asctime)s - %(levelname)s - %(message)s',datefmt='%Y-%m-%d %H:%M:%S',level=logging.INFO)
+log_num = ""
+directory_for_save_img = ""
+limit = 1
+
+if not len(sys.argv) == 1:
+  log_num = sys.argv[1]
+  directory_for_save_img = sys.argv[2]
+  limit = sys.argv[3]
+
+
+logging.basicConfig(filename=f"{current_date}-url-download-{log_num}.log", filemode='a', format='%(asctime)s - %(levelname)s - %(message)s',datefmt='%Y-%m-%d %H:%M:%S',level=logging.INFO)
 start_time = time.time()
 logging.info('URL 圖片下載測試開始')
-save_image_path = "/home/john/桌面/工作/測試/減少檔案搬移避免檔案遺失測試/下載圖片區/"
-limit = 1367
+save_image_path = f"/home/john/桌面/工作/測試/減少檔案搬移避免檔案遺失測試/下載圖片區/{directory_for_save_img}/"
 
 logging.info(f'開始從資料庫拉取 {limit} 筆圖片 URL ')
 remote_img__url_list = mainController.fetch_all_img_url_from_database_by_limit(limit)
@@ -37,3 +47,4 @@ end_time = time.time()
 elapsed_time = end_time - start_time
 logging.info('測試結束')
 logging.info(f'花費時間: {elapsed_time}')
+logging.info('\n')
