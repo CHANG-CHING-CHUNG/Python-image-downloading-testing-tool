@@ -1,6 +1,8 @@
 import psycopg2 as pg2
+import os
+from dotenv import load_dotenv
 
-
+load_dotenv()
 class Database:
   def __init__(self, host, database, user, password):
     self.host = host
@@ -28,10 +30,16 @@ class Database:
   def fetchall(self):
     return self.cur.fetchall()
 
+host = os.getenv("DB_HOST")
+database = os.getenv("DB_DATABASE")
+user = os.getenv("DB_USER")
+password = os.getenv("DB_PASSWORD")
+
 db = Database(
-    host="localhost",
-    database="img_test",
-    user="postgres",
-    password="postgres")
+    host,
+    database,
+    user,
+    password)
+
 
 db.connect()

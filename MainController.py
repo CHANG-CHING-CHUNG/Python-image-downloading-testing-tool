@@ -4,7 +4,9 @@ from PIL import Image
 import io
 from os import walk
 from ImageController import imageController
-
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 class MainController:
 
@@ -22,6 +24,12 @@ class MainController:
     def upload_img_to_database(self, img_name):
         img = Image.open(self.images_path + img_name)
         img.filename = img.filename.split("/")[-1]
+        returned_id = imageController.upload_image_to_database_in_bytes(img)
+        return returned_id
+
+    def upload_10k_img_to_database(self, img_name,n):
+        img = Image.open(self.images_path + img_name)
+        img.filename = n
         returned_id = imageController.upload_image_to_database_in_bytes(img)
         return returned_id
 
@@ -92,7 +100,6 @@ class MainController:
 
 
 
-images_path = "/home/john/桌面/工作/測試/減少檔案搬移避免檔案遺失測試/測試用圖片/test-image/"
-save_image_path = "/home/john/桌面/工作/測試/減少檔案搬移避免檔案遺失測試/下載圖片區/"
-
+images_path = os.getenv("IMAGES_PATH")
+save_image_path = os.getenv("SAVE_IMAGE_PATH")
 mainController = MainController(images_path, save_image_path)

@@ -9,23 +9,29 @@ import time
 import logging
 import datetime
 import sys
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+save_image_path = os.getenv("SAVE_IMAGE_PATH")
+limit = int(os.getenv("LIMIT"))
 
 current_date = datetime.datetime.now()
 current_date = current_date.strftime("%Y-%m-%d")
 
 log_num = ""
 directory_for_save_img = ""
-limit = 1
 if not len(sys.argv) == 1:
   log_num = sys.argv[1]
   directory_for_save_img = sys.argv[2]
-  limit = sys.argv[3]
 
 
 logging.basicConfig(filename=f"{current_date}-db-download-{log_num}.log", filemode='a', format='%(asctime)s - %(levelname)s - %(message)s',datefmt='%Y-%m-%d %H:%M:%S',level=logging.INFO)
 start_time = time.time()
 logging.info('db 圖片下載測試開始')
-save_image_path = f"/home/john/桌面/工作/測試/減少檔案搬移避免檔案遺失測試/下載圖片區/{directory_for_save_img}/"
+
+save_image_path = f"{save_image_path}{directory_for_save_img}/"
 
 logging.info(f'開始從資料庫拉取 {limit} 筆 byte 型式的圖片')
 remote_img_list = mainController.fetch_images_from_database_by_limit(limit)

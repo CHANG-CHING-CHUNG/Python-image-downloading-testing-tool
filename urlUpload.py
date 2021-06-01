@@ -1,9 +1,12 @@
 from MainController import mainController
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+images_path = os.getenv("IMAGES_PATH")
 
 
-
-local_img_list = mainController.get_all_filenames("/home/john/桌面/工作/測試/減少檔案搬移避免檔案遺失測試/測試用圖片/test-image")
-
+local_img_list = mainController.get_all_filenames(images_path)
 for img_name in local_img_list:
   print(img_name)
   returned_id = mainController.upload_img_url_to_database(img_name)

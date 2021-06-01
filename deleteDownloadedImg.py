@@ -1,11 +1,13 @@
 import shutil
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
-base_dir = "/home/john/桌面/工作/測試/減少檔案搬移避免檔案遺失測試/下載圖片區/"
+save_image_path = os.getenv("SAVE_IMAGE_PATH")
 dir_array = []
 
 for n in range(1,11):
-  dir_array.append(base_dir + str(n))
+  dir_array.append(save_image_path + str(n))
 
 
 for dir in dir_array:
@@ -14,8 +16,7 @@ try:
   for dir in dir_array:
     shutil.rmtree(dir)
     os.makedirs(dir)
+  print("所有圖片移除成功")
 except:
   for dir in dir_array:
     os.makedirs(dir)
-
-

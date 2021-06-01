@@ -1,9 +1,11 @@
 from os import walk
 from MainController import mainController
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-limit = 1000
-base_dir = "/home/john/桌面/工作/測試/減少檔案搬移避免檔案遺失測試/下載圖片區"
-
+limit = os.getenv("LIMIT")
+base_dir = os.getenv("SAVE_IMAGE_PATH")
 dirs_list = []
 for (dirpath, dirnames, filenames) in walk(base_dir):
     dirs_list.extend(dirnames)
@@ -12,7 +14,7 @@ for (dirpath, dirnames, filenames) in walk(base_dir):
 total_img_list = []
 
 for directory_for_save_img in dirs_list:
-    local_img_list = mainController.get_all_filenames(f"/home/john/桌面/工作/測試/減少檔案搬移避免檔案遺失測試/下載圖片區/{directory_for_save_img}/")
+    local_img_list = mainController.get_all_filenames(f"{base_dir}{directory_for_save_img}/")
     total_img_list.append(len(local_img_list))
 
 is_img_missing = False
