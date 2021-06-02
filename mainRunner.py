@@ -39,7 +39,7 @@ class Runner:
 
       os.system(f'python ./deleteDownloadedImg.py')
 
-  def run_multiple_download_same_time(self,type ,script_name, logs_num, times_to_run):
+  def run_multiple_download_same_time(self,type ,script_name, logs_num, times_to_run, sleep_seconds):
       new__command_arr = self.generate_commands(script_name, logs_num)
 
       for n in range(1,times_to_run + 1):
@@ -48,12 +48,12 @@ class Runner:
         if type == "db":
           print(command_str)
           os.system(command_str)
-          time.sleep(100)
+          time.sleep(sleep_seconds)
           os.system(f'python ./deleteDownloadedImg.py')
         elif type == "url":
           print(command_str)
           os.system(command_str)
-          time.sleep(100)
+          time.sleep(sleep_seconds)
           os.system(f'python ./deleteDownloadedImg.py')
         
 
@@ -71,7 +71,7 @@ class Runner:
 
 
 r = Runner()
-# r.run_multiple_download_same_time("url","databaseDownload", 3, 10)
-r.run_multiple_download_same_time("url","urlDownload", 3, 10)
+r.run_multiple_download_same_time("db","databaseDownload", 3, 3,120)
+# r.run_multiple_download_same_time("url","urlDownload", 3, 10, 30)
 
 

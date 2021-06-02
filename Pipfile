@@ -8,6 +8,7 @@ flask-restful = "*"
 psycopg2 = "*"
 pillow = "*"
 python-dotenv = "*"
+psutil = "*"
 
 [dev-packages]
 
