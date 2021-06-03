@@ -35,7 +35,7 @@ save_image_path = f"{save_image_path}{directory_for_save_img}/"
 
 logging.info(f'開始從資料庫拉取 {limit} 筆圖片 URL ')
 remote_img__url_list = mainController.fetch_all_img_url_from_database_by_limit(limit)
-logging.info(f"CPU 使用率: {psutil.cpu_percent()} %   記憶體使用率: {psutil.virtual_memory().percent}")
+logging.info(f"CPU 使用率: {psutil.cpu_percent()} %   記憶體使用率: {psutil.virtual_memory().percent} %")
 img_count = len(remote_img__url_list)
 logging.info(f'{img_count} 筆圖片 URL 拉取結束')
 
@@ -47,7 +47,7 @@ for img in remote_img__url_list:
   mainController.save_image_to_path(img,save_image_path,img.filename)
   # if mainController.save_image_to_path(img,save_image_path,img.filename):
   #     print(f"Image: {img_name} save succeeded")
-logging.info(f"CPU 使用率: {psutil.cpu_percent()} %   記憶體使用率: {psutil.virtual_memory().percent}")
+logging.info(f"CPU 使用率: {psutil.cpu_percent()} %   記憶體使用率: {psutil.virtual_memory().percent} %")
 logging.info(f'{img_count} 筆圖片下載完畢')
 end_time = time.time()
 elapsed_time = end_time - start_time
