@@ -71,8 +71,8 @@ class Runner:
 
 
 r = Runner()
-r.run_multiple_download_same_time("db","databaseDownload", 3, 10,80)
-# r.run_multiple_download_same_time("url","urlDownload", 3, 10, 120)
+r.run_multiple_download_same_time("db","databaseDownload", 3, 10,3)
+# r.run_multiple_download_same_time("url","urlDownload", 3, 10, 10)
 
 # r.run_single_download("db",1,10)
 # r.run_single_download("url",1,10)
